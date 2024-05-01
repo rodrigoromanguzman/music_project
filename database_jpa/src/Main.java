@@ -1,6 +1,9 @@
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Persistence;
 
+import java.lang.reflect.Array;
+import java.util.Arrays;
+
 // Press Shift twice to open the Search Everywhere dialog and type `show whitespaces`,
 // then press Enter. You can now see whitespace characters in your code.
 public class Main {
@@ -12,25 +15,10 @@ public class Main {
                 ){
             var transaction = entityManager.getTransaction();
             transaction.begin();
-//          entityManager.persist(new Artist("J Sebastian"));
-//            Artist artist = new Artist(215,"JS Bach");
-            Artist artist = entityManager.find(Artist.class,207);
+            Artist artist = entityManager.find(Artist.class,212);
             System.out.println(artist);
-            artist.addAlbum("The best of Robert");
-            System.out.println(artist);
-
-
-
-//            System.out.println(artist);
-//            artist.removeDuplicates();
-//            System.out.println(artist);
-//            artist.getAlbums().size();
-//            System.out.println(artist);
-
-//            System.out.println(artist);
-//            entityManager.merge(artist);
-
-//            entityManager.remove(artist);
+            artist.addAlbumWithSongs("Test Album 2", Arrays.asList("Song Test 1","Song Test 2"));
+            entityManager.merge(artist);
             transaction.commit();
             //Connexion exitosa
         }catch (Exception e){

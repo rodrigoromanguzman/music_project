@@ -31,8 +31,6 @@ public class Artist {
         albums.addAll(set);
     }
 
-
-
     public Artist(String artistName) {
         this.artistName = artistName;
     }
@@ -50,6 +48,26 @@ public class Artist {
         return albums;
     }
 
+    public void addAlbumWithSongs(String albumName,List<String> songTitles){
+        Album album = new Album(albumName);
+        for(String title: songTitles){
+            album.addSong(title);
+        }
+        albums.add(album);
+    }
+
+    public List<Song> getAllSong(){
+        List<Song> allSongs = new ArrayList<>();
+        for (Album album: albums){
+            allSongs.addAll(album.getSongs());
+        }
+        return allSongs;
+    }
+    public void removeAlbum(Album album){
+        albums.remove(album);
+        album.getSongs().forEach(song-> song.setAlbum(null));
+    }
+
     public void setArtistName(String artistName) {
         this.artistName = artistName;
     }
@@ -62,4 +80,5 @@ public class Artist {
                 ", albums=" + albums +
                 '}';
     }
+
 }

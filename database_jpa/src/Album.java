@@ -1,5 +1,8 @@
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name = "albums")
 public class Album implements Comparable<Album>{
@@ -10,6 +13,22 @@ public class Album implements Comparable<Album>{
 
     @Column(name = "album_name")
     private String albumName;
+
+    @OneToMany(mappedBy = "album",cascade = CascadeType.ALL,orphanRemoval = true)
+    private List<Song> songs = new ArrayList<>();
+
+    public void addSong(String title){
+        songs.add(new Song(title,this));
+    }
+
+    public List<Song> getSongs() {
+        return songs;
+    }
+
+    public void removeSong(Song song){
+        songs.remove(song);
+        song.setAlbum(null);
+    }
 
     public Album() {
     }
@@ -26,6 +45,7 @@ public class Album implements Comparable<Album>{
         this.albumId = albumId;
         this.albumName = albumName;
     }
+
 
     public String getAlbumName() {
         return albumName;
